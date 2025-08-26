@@ -1,6 +1,6 @@
 # Learning Front-End with React while implemention to E-Commerce UI Design
 
-#### E-Commerce called "Hoseki Shops"
+#### E-Commerce called "HOSEKI Shops"
 
 #### Tech stack : React + Vite, Typescript, Tailwind, Yarn
 
