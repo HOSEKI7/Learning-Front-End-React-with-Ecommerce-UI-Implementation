@@ -2,7 +2,7 @@ import MainLayout from "../components/Layouts/MainLayout";
 
 const ContactPage = () => {
   return (
-    <MainLayout classname="max-w-[1280px]">
+    <MainLayout classname="container">
       <h1>DOU YOU WANT MY CONTACT?</h1>
       <form action="POST" className="flex flex-col space-y-3">
         <div className="flex flex-col max-w-[200px] gap-1">

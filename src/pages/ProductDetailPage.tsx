@@ -5,7 +5,7 @@ const ProductDetailPage = () => {
   const params = useParams<{ productSlug: string }>();
 
   return (
-    <MainLayout classname="max-w-[1280px]">
+    <MainLayout classname="container">
       <div className="my-6">
         <p className="text-xs font-light px-5">
           HOME / PRODUCTS / PRODUCT DETAIL
