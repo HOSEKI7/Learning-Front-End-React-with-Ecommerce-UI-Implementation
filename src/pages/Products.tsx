@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+
 import CardProduct from "../components/Fragments/CardProduct";
 import MainLayout from "../components/Layouts/MainLayout";
 
@@ -39,63 +40,140 @@ const products = [
 ];
 
 const ProductsPage = () => {
-  const [cart, setCart] = useState([
-    {
-      id: 1,
-      quantity: 1,
-    },
-  ]);
+  const [cart, setCart] = useState<{ id: number; quantity: number }[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
+  }, []);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      const sum = cart.reduce((total, item) => {
+        const product = products.find((product) => product.id === item.id);
+        return total + (product?.price ?? 0) * item.quantity;
+      }, 0);
+      setTotalPrice(sum);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   const handleAddToCart = (id: number) => {
-    setCart([
-      ...cart,
-      {
-        id,
-        quantity: 1,
-      },
-    ]);
+    if (cart.find((item) => item.id === id)) {
+      setCart(
+        cart.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      );
+    } else {
+      setCart([...cart, { id, quantity: 1 }]);
+    }
   };
 
   return (
-    <MainLayout classname="max-w-[1280px]">
-      <div className="my-6 flex flex-col">
-        <h1 className="pb-10 py-5 text-xl font-semibold tracking-wider">
-          MOST POPULAR PRODUCTS
-        </h1>
-        <div className="grid grid-cols-3 gap-6">
-          {products.map((product) => (
-            <CardProduct key={product.id}>
-              <CardProduct.Header image={product.image} link={product.link} />
-              <CardProduct.Body name={product.name} variant={product.variant}>
-                {product.description}
-              </CardProduct.Body>
-              <CardProduct.Footer
-                price={product.price}
-                realPrice={product.realPrice}
-                handleAddToCart={handleAddToCart}
-                id={product.id}
-              />
-            </CardProduct>
-          ))}
+    <MainLayout classname="max-w-[1440px]">
+      <Fragment>
+        <div className="">
+          <div className="my-6">
+            <h1 className="pb-10 py-5 text-xl font-semibold tracking-wider">
+              MOST POPULAR PRODUCTS
+            </h1>
+          </div>
+          <div className="flex gap-4">
+            <div className="w-3/4 my-6 flex flex-col">
+              <div className="grid grid-cols-3 gap-6">
+                {products.map((product) => (
+                  <CardProduct key={product.id}>
+                    <CardProduct.Header
+                      image={product.image}
+                      link={product.link}
+                    />
+                    <CardProduct.Body
+                      name={product.name}
+                      variant={product.variant}
+                    >
+                      {product.description}
+                    </CardProduct.Body>
+                    <CardProduct.Footer
+                      price={product.price}
+                      realPrice={product.realPrice}
+                      handleAddToCart={handleAddToCart}
+                      id={product.id}
+                    />
+                  </CardProduct>
+                ))}
+              </div>
+            </div>
+            {/* Cart */}
+            <div className="w-1/4 my-6 border-2 text-sm">
+              <div className="flex flex-col justify-center">
+                <h1 className="text-xl font-semibold text-left ml-2 my-2">
+                  CART
+                </h1>
+                <div>
+                  <table className="text-left table-auto border-separate border-spacing-x-3 wrap-anywhere">
+                    <thead>
+                      <tr>
+                        <th>Quantity</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Total Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cart.map((item) => {
+                        const product = products.find(
+                          (product) => product.id === item.id
+                        );
+                        if (!product) return null;
+                        return (
+                          <tr>
+                            <td>{item.quantity}</td>
+                            <td>{product.name}</td>
+                            <td className="text-wrap">
+                              {" "}
+                              {product.price.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}
+                            </td>
+                            <td>
+                              {" "}
+                              {(item.quantity * product.price).toLocaleString(
+                                "id-ID",
+                                { style: "currency", currency: "IDR" }
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                      <tr>
+                        <td colSpan={3}>
+                          <b>Total Price</b>
+                        </td>
+                        <td>
+                          <b>
+                            {" "}
+                            {totalPrice.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center my-10">
+            <button className="px-4 py-2 font-semibold rounded-md bg-[#185839] text-white cursor-pointer">
+              Load More
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="flex justify-center my-10">
-        <button className="px-4 py-2 font-semibold rounded-md bg-[#185839] text-white cursor-pointer">
-          Load More
-        </button>
-      </div>
-      <div className="flex flex-col justify-center items-center max-w-xs mx-auto border-2">
-        <h1 className="text-center font-bold text-3xl">Cart</h1>
-        <div className="flex justify-center items-center my-3">
-          <ul>
-            {cart.map((item) => (
-              <li key={item.id}>
-                {item.id} - {item.quantity}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      </Fragment>
     </MainLayout>
   );
 };

@@ -1,9 +1,12 @@
 import { Link, NavLink } from "react-router";
 import { User, Search, Handbag, ChevronDown } from "lucide-react";
 import Button from "../Elements/Button/button";
+import CartFragment from "../Fragments/CartFragment";
+import { useState } from "react";
 
 const Navbar = () => {
   const email = localStorage.getItem("email");
+  const [isCartVisible, setIsCartVisible] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("email");
@@ -50,7 +53,16 @@ const Navbar = () => {
           <User />
         </Link>
         <Search />
-        <Handbag />
+
+        <div
+          className="relative"
+          onMouseEnter={() => setIsCartVisible(true)}
+          onMouseLeave={() => setIsCartVisible(false)}
+        >
+          <Handbag className="cursor-pointer" />
+          <CartFragment isVisible={isCartVisible} />
+        </div>
+
         <Button onClick={handleLogout} classname="bg-[#185839]">
           Logout
         </Button>

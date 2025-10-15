@@ -57,10 +57,28 @@ const ProductDetailPage = () => {
                 latency and AI image Scaling to boost untill the peak
                 performance
               </p>
+
               <div className="flex gap-3">
                 <p>choose your prefer variant </p>
                 <p>caspian blue</p>
               </div>
+
+              <div className="flex gap-2 flex-col mt-4">
+                <p className="text-sm">choose your prefer variant </p>
+                <div className="flex flex-wrap text-center gap-3">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="flex flex-row items-center gap-2">
+                      <button className="px-2 py-1 border-1 hover:bg-green-800 hover:text-white transition-colors">
+                        caspian blue
+                      </button>
+                      {i < 4 && (
+                        <p className="flex justify-center items-center">-</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div></div>
             </div>
           </div>
         </div>
