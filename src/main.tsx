@@ -10,7 +10,7 @@ import ProductDetailPage from "./pages/ProductDetailPage.tsx";
 import ContactPage from "./pages/Contact.tsx";
 import AboutPage from "./pages/About.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
-import ProductsPage from "./pages/Products.tsx";
+import ProductsPage from "./pages/Products.js";
 
 const router = createBrowserRouter([
   // {

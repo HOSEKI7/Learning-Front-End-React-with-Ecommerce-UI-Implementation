@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 import CardProduct from "../components/Fragments/CardProduct";
 import MainLayout from "../components/Layouts/MainLayout";
@@ -69,6 +69,26 @@ const ProductsPage = () => {
       setCart([...cart, { id, quantity: 1 }]);
     }
   };
+
+  const totalPriceRef = useRef<HTMLTableRowElement>(null);
+
+  useEffect(() => {
+    if (totalPriceRef.current) {
+      if (cart.length > 0) {
+        totalPriceRef.current.style.display = "table-row";
+      } else {
+        totalPriceRef.current.style.display = "none";
+      }
+    }
+  });
+
+  // useRef addToCart
+  // const cartRef = useRef(JSON.parse(localStorage.getItem("cart") || "[]"));
+
+  // const handleAddToCartRef = (id: number) => {
+  //   cartRef.current = [...cartRef.current, { id, quantity: 1 }];
+  //   localStorage.setItem("cart", JSON.stringify(cartRef.current));
+  // };
 
   return (
     <MainLayout classname="max-w-[1440px]">
@@ -147,7 +167,7 @@ const ProductsPage = () => {
                           </tr>
                         );
                       })}
-                      <tr>
+                      <tr ref={totalPriceRef}>
                         <td colSpan={3}>
                           <b>Total Price</b>
                         </td>

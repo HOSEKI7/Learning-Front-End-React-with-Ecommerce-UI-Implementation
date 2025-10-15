@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import Input from "./Input";
 import Label from "./Label";
 
@@ -9,7 +10,7 @@ type InputFormProps = {
   required?: boolean;
 };
 
-const InputForm = (props: InputFormProps) => {
+const InputForm = forwardRef<HTMLInputElement, InputFormProps>((props, ref) => {
   const { label, name, type, placeholder, required } = props;
 
   return (
@@ -21,10 +22,11 @@ const InputForm = (props: InputFormProps) => {
           name={name}
           placeholder={placeholder}
           required={required}
+          ref={ref}
         />
       </div>
     </div>
   );
-};
+});
 
 export default InputForm;

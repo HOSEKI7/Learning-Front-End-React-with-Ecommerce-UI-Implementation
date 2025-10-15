@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 type InputProps = {
   type: string;
   placeholder: string;
@@ -5,7 +7,7 @@ type InputProps = {
   required?: boolean;
 };
 
-const Input = (props: InputProps) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { type, placeholder, name, required = true } = props;
 
   return (
@@ -16,8 +18,9 @@ const Input = (props: InputProps) => {
       name={name}
       id={name}
       required={required}
+      ref={ref}
     />
   );
-};
+});
 
 export default Input;
