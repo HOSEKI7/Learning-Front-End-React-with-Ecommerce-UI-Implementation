@@ -2,13 +2,10 @@ import { Link, NavLink } from "react-router";
 import { User, Search, Handbag, ChevronDown } from "lucide-react";
 import Button from "../Elements/Button/button";
 import CartFragment from "../Fragments/CartFragment";
-import { useEffect, useState } from "react";
-import { getUsername } from "../../services/auth.service";
+import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const token = localStorage.getItem("token");
-  const [username, setUsername] = useState("");
-
   const [isCartVisible, setIsCartVisible] = useState(false);
 
   const handleLogout = () => {
@@ -16,14 +13,7 @@ const Navbar = () => {
     window.location.href = "/login";
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setUsername(getUsername(token));
-    } else {
-      window.location.href = "/login";
-    }
-  }, [token]);
+  const username = useAuth().username;
 
   return (
     <nav className="flex justify-between items-center p-4 bg-white text-black">
