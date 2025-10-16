@@ -24,7 +24,6 @@ const FormLogin = () => {
     login(data, (status, res: { response?: { data: string } } | string) => {
       if (status) {
         localStorage.setItem("token", res as string);
-        localStorage.setItem("username", data.username);
         window.location.href = "/";
       } else {
         setLoginFailed(

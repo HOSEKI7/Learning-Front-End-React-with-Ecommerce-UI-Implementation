@@ -1,11 +1,10 @@
 import { useParams } from "react-router";
-import MainLayout from "../components/Layouts/MainLayout";
 
 const ProductDetailPage = () => {
   const params = useParams<{ productSlug: string }>();
 
   return (
-    <MainLayout classname="container">
+    <>
       <div className="my-6">
         <p className="text-xs font-light px-5">
           HOME / PRODUCTS / PRODUCT DETAIL
@@ -83,7 +82,7 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 };
 export default ProductDetailPage;

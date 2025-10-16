@@ -1,11 +1,10 @@
 import { useRouteError } from "react-router";
-import MainLayout from "../components/Layouts/MainLayout";
 
 const NotFoundPage = () => {
   const error = useRouteError();
 
   return (
-    <MainLayout>
+    <>
       <div className="flex text-center text-black h-100 justify-center items-center">
         <div>
           <h1 className="text-9xl font-bold">404</h1>
@@ -19,7 +18,7 @@ const NotFoundPage = () => {
           </button>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 };
 

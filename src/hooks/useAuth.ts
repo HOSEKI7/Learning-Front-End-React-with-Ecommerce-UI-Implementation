@@ -8,8 +8,6 @@ export const useAuth = () => {
     const token = localStorage.getItem("token");
     if (token) {
       setUsername(getUsername(token));
-    } else {
-      window.location.href = "/login";
     }
   }, []);
 
