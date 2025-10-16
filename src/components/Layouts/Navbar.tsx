@@ -2,17 +2,28 @@ import { Link, NavLink } from "react-router";
 import { User, Search, Handbag, ChevronDown } from "lucide-react";
 import Button from "../Elements/Button/button";
 import CartFragment from "../Fragments/CartFragment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUsername } from "../../services/auth.service";
 
 const Navbar = () => {
-  const email = localStorage.getItem("email");
+  const token = localStorage.getItem("token");
+  const [username, setUsername] = useState("");
+
   const [isCartVisible, setIsCartVisible] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("email");
-    localStorage.removeItem("password");
+    localStorage.removeItem("token");
     window.location.href = "/login";
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUsername(getUsername(token));
+    } else {
+      window.location.href = "/login";
+    }
+  }, [token]);
 
   return (
     <nav className="flex justify-between items-center p-4 bg-white text-black">
@@ -48,7 +59,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex space-x-3 md:p-4 items-center">
-        <p>{email}</p>
+        <p>{username}</p>
         <Link to="/login">
           <User />
         </Link>

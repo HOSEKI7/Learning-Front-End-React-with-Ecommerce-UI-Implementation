@@ -18,7 +18,7 @@ const AuthLayout = (props: AuthLayoutProps) => {
           Welcome, Please enter your details
         </p>
         {children}
-        <p className="text-sm text-neutral-300 mt-5 text-center">
+        <p className="text-sm text-neutral-300 p-3 text-center">
           {type === "login"
             ? "Dont't have an account yet? "
             : "Already have an account? "}
