@@ -16,9 +16,9 @@ const Navbar = () => {
   const username = useAuth().username;
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-white text-black">
-      <div className="flex items-center md:pl-14">
-        <img src="/images/Hoseki Shops Logo.png" alt="" className="h-16" />
+    <nav className="flex justify-between items-center p-4 bg-white text-black drop-shadow-sm">
+      <div className="flex justify-center items-center md:pl-14">
+        <img src="/images/Hoseki Shops Logo.png" alt="" className="h-18" />
       </div>
       <div>
         <ul className="flex space-x-6">
