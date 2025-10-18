@@ -88,18 +88,5 @@ _Coming soon – screenshots and GIFs will be added later._
 
 ---
 
-## 👨‍💻 Author
-
-**Farid Zahran**  
-A Computer Science student and aspiring **Fullstack Web Developer** who is passionate about learning and building real-world web projects.
-
-🌐 [GitHub Profile](https://github.com/HOSEKI7)
-
----
-
-## 📝 License
-
 This project is made **for learning purposes only**.  
 Feel free to fork, explore, and use it to learn React.js!
-
----
